@@ -18,7 +18,6 @@ namespace Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
-        public ICollection<string> Films { get; set; }
         public string Rating { get; set; }
 
         //public ICollection<Film> Films { get; set; }

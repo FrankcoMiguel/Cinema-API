@@ -109,7 +109,6 @@ namespace Service
                 actualActor.FirstName = newActor.FirstName;
                 actualActor.LastName = newActor.LastName;
                 actualActor.Age = newActor.Age;
-                actualActor.Films = newActor.Films;
                 actualActor.Rating = newActor.Rating;
 
 
