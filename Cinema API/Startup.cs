@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Persistence;
 
 namespace Cinema_API
 {
@@ -28,6 +30,11 @@ namespace Cinema_API
         {
 
             var connection = Configuration.GetConnectionString("Dev");
+            
+            //DbContext Dependency Injection
+            services.AddDbContext<CinemaDbContext>(options => options.UseSqlServer(connection));
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddCors(options =>
