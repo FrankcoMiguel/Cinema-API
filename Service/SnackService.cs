@@ -63,7 +63,7 @@ namespace Service
             try
             {
 
-                snackFound = _cinemaDbContext.Snack.Single(x => x.SnackId == id && x.PhotoRef == id );
+                snackFound = _cinemaDbContext.Snack.Single(x => x.SnackId == id);
 
             }
             catch (System.Exception e)
