@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Persistence;
+using Service;
 
 namespace Cinema_API
 {
@@ -33,6 +34,14 @@ namespace Cinema_API
             
             //DbContext Dependency Injection
             services.AddDbContext<CinemaDbContext>(options => options.UseSqlServer(connection));
+
+            //Services Dependency Injection
+            services.AddTransient<IFilmService, FilmService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<ISnackService, SnackService>();
+            services.AddTransient<IActorService, ActorService>();
+            services.AddTransient<IDirectorService, DirectorService>();
+
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
