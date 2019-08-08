@@ -51,7 +51,6 @@ namespace Service
 
         }
         
-        [Fact]
         public Film Add_FakeFilm(Film fakeFilm)
         {
 
@@ -69,77 +68,37 @@ namespace Service
 
         }
 
-        public IEnumerable<Film> SelectAll()
+        public IEnumerable<Film> Select_All_FakeFilms()
         {
 
-            var allFilms = new List<Film>();
-
-            try
-            {
-
-                allFilms = _cinemaDbContext.Film.ToList();
-
-            }
-            catch (System.Exception e)
-            {
-
-                Console.WriteLine("Error caused by", e);
-
-            }
-
-            return allFilms;
+            return _fakeFilms;
 
         }
 
-        public bool Update(int id, Film newFilm)
+        public bool Update_FakeFilm(int id, Film fakeFilm)
         {
 
-            try
-            {
+            var existingFilm = _fakeFilms.Single(x => x.FilmId == id);
 
-                var actualFilm = _cinemaDbContext.Film.Single(x => x.FilmId == id);
+            existingFilm.Title = fakeFilm.Title;
+            existingFilm.Description = fakeFilm.Description;
+            existingFilm.Year = fakeFilm.Year;
+            existingFilm.Genre = fakeFilm.Genre;
+            existingFilm.Duration = fakeFilm.Duration;
+            existingFilm.Rating = fakeFilm.Rating;
 
-                actualFilm.Title = newFilm.Title;
-                actualFilm.Description = newFilm.Description;
-                actualFilm.Year = newFilm.Year;
-                actualFilm.Genre = newFilm.Genre;
-                actualFilm.Duration = newFilm.Duration;
-                actualFilm.Rating = newFilm.Rating;
-
-                _cinemaDbContext.Update(actualFilm);
-                _cinemaDbContext.SaveChanges();
-
-            }
-            catch (System.Exception)
-            {
-
-                return false;
-
-            }
+            _fakeFilms.Add(fakeFilm);
 
             return true;
 
 
         }
 
-        public bool Delete(int id)
+        public bool Delete_FakeFilm(int id)
         {
 
-            try
-            {
-
-                _cinemaDbContext.Remove(new Film { FilmId = id }).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-                _cinemaDbContext.SaveChanges();
-
-
-            }
-            catch (System.Exception)
-            {
-
-                return false;
-
-            }
-
+            var EmployeeExisting = _fakeFilms.First(x => x.FilmId == id);
+            _fakeFilms.Remove(EmployeeExisting);
             return true;
 
         }
