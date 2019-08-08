@@ -24,12 +24,12 @@ namespace Service
 
     }
 
-    public class SnackServiceTests : ISnackService
+    public class SnackServiceFake : ISnackService
     {
 
         private readonly List<Snack> _fakeSnacks;
 
-        public SnackServiceTests()
+        public SnackServiceFake()
         {
 
             _fakeSnacks = new List<Snack>()

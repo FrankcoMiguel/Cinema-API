@@ -24,12 +24,12 @@ namespace Service
 
     }
 
-    public class DirectorServiceTests : IDirectorService
+    public class DirectorServiceFake : IDirectorService
     {
 
         private readonly List<Director> _fakeDirectors;
 
-        public DirectorServiceTests()
+        public DirectorServiceFake()
         {
 
             _fakeDirectors = new List<Director>()
@@ -89,5 +89,7 @@ namespace Service
             return true;
 
         }
+
     }
+
 }

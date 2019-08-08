@@ -24,12 +24,12 @@ namespace Service
 
     }
 
-    public class ActorServiceTests : IActorService
+    public class ActorServiceFake : IActorService
     {
 
         private readonly List<Actor> _fakeActors;
 
-        public ActorServiceTests()
+        public ActorServiceFake()
         {
 
             _fakeActors = new List<Actor>()

@@ -24,12 +24,12 @@ namespace Service
 
     }
 
-    public class EmployeeServiceTests : IEmployeeService
+    public class EmployeeServiceFake : IEmployeeService
     {
 
         private readonly List<Employee> _fakeEmployees;
 
-        public EmployeeServiceTests()
+        public EmployeeServiceFake()
         {
 
             _fakeEmployees = new List<Employee>()

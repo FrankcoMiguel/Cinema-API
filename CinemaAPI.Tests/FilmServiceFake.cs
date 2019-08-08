@@ -24,12 +24,12 @@ namespace Service
 
     }
 
-    public class FilmServiceTests : IFilmService
+    public class FilmServiceFake : IFilmService
     {
 
         private readonly List<Film> _fakeFilms;
 
-        public FilmServiceTests()
+        public FilmServiceFake()
         {
 
             _fakeFilms = new List<Film>()
@@ -104,4 +104,7 @@ namespace Service
         }
 
     }
+
+
+
 }
