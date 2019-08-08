@@ -110,6 +110,7 @@ namespace Service
                 actualDirector.FirstName = newDirector.FirstName;
                 actualDirector.LastName = newDirector.LastName;
                 actualDirector.Age = newDirector.Age;
+                actualDirector.Films = newDirector.Films;
                 actualDirector.Rating = newDirector.Rating;
 
                 _cinemaDbContext.Update(actualDirector);
