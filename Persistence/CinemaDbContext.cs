@@ -10,6 +10,8 @@ namespace Persistence
     {
 
         public DbSet<Film> Film { get; set; }
+        public DbSet<Employee> Employee { get; set; }
+
 
         public CinemaDbContext(DbContextOptions<CinemaDbContext> options) : base(options) { }
 
