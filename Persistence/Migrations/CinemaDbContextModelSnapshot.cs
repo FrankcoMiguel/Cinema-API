@@ -28,6 +28,10 @@ namespace Persistence.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 1)));
+
                     b.Property<string>("LastName");
 
                     b.Property<string>("Rating");

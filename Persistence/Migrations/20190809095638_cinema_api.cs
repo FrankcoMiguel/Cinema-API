@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class cinema_test : Migration
+    public partial class cinema_api : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,7 @@ namespace Persistence.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false),
+                    Gender = table.Column<string>(nullable: false),
                     Rating = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

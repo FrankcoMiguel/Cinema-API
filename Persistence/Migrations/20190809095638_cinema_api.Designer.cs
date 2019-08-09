@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    [Migration("20190808025218_cinema_test")]
-    partial class cinema_test
+    [Migration("20190809095638_cinema_api")]
+    partial class cinema_api
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,10 @@ namespace Persistence.Migrations
                     b.Property<int>("Age");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 1)));
 
                     b.Property<string>("LastName");
 
