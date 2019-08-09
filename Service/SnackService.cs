@@ -17,7 +17,7 @@ namespace Service
         //GET
         IEnumerable<Snack> SelectAll();
         //PUT
-        bool Update(int id, Snack snack);
+        Snack Update(int id, Snack snack);
         // DELETE
         bool Delete(int id);
 
@@ -99,7 +99,7 @@ namespace Service
 
         }
 
-        public bool Update(int id, Snack newSnack)
+        public Snack Update(int id, Snack newSnack)
         {
 
             try
@@ -116,15 +116,17 @@ namespace Service
                 _cinemaDbContext.Update(actualSnack);
                 _cinemaDbContext.SaveChanges();
 
+                return actualSnack;
+
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
 
             }
 
-            return true;
+            
 
 
         }
@@ -134,8 +136,8 @@ namespace Service
 
             try
             {
-
-                _cinemaDbContext.Remove(new Snack { SnackId = id }).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                Snack snack = _cinemaDbContext.Snack.Single(x => x.SnackId == id);
+                _cinemaDbContext.Remove(snack).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 _cinemaDbContext.SaveChanges();
 
 
