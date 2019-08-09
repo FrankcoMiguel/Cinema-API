@@ -10,7 +10,7 @@ namespace Service
     public interface IFilmService
     {
         //POST
-        bool Add(Film film);
+        Film Add(Film film);
         //GET
         Film Select(int id);
         //GET
@@ -18,7 +18,7 @@ namespace Service
         //PUT
         bool Update(int id, Film film);
         // DELETE
-        bool Delete(int id);
+        IEnumerable<Film> Delete(int id);
 
     }
 
@@ -34,7 +34,7 @@ namespace Service
 
         }
 
-        public bool Add(Film film)
+        public Film Add(Film film)
         {
 
             try
@@ -42,16 +42,17 @@ namespace Service
 
                 _cinemaDbContext.Add(film);
                 _cinemaDbContext.SaveChanges();
+                return film;
 
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
 
             }
 
-            return true;
+            
 
         }
 
@@ -130,25 +131,27 @@ namespace Service
 
         }
 
-        public bool Delete(int id)
+        public IEnumerable<Film> Delete(int id)
         {
 
             try
             {
-
-                _cinemaDbContext.Remove(new Film { FilmId = id }).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                Film film = _cinemaDbContext.Film.Single(x => x.FilmId == id);
+                _cinemaDbContext.Remove(film).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 _cinemaDbContext.SaveChanges();
 
+                return _cinemaDbContext.Film.ToList();
+
 
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
 
             }
 
-            return true;
+
 
         }
 

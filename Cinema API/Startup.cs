@@ -43,7 +43,6 @@ namespace Cinema_API
             services.AddTransient<IDirectorService, DirectorService>();
 
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddCors(options =>
