@@ -23,7 +23,7 @@ namespace CinemaAPI.Tests
             {
 
                 new Actor {ActorId = 1, FirstName = "Robert", LastName = "Redfort", Age = 64, Gender = 'M', Rating ="7.2/10"},
-                new Actor {ActorId = 2, FirstName = "Tom Holland", LastName = "Holland", Age = 23, Gender = 'M', Rating ="7.5/10"},
+                new Actor {ActorId = 2, FirstName = "Tom", LastName = "Holland", Age = 23, Gender = 'M', Rating ="7.5/10"},
                 new Actor {ActorId = 3, FirstName = "Zoe", LastName = "Saldaña", Age = 37, Gender = 'F', Rating ="8.1/10"},
                 new Actor {ActorId = 4, FirstName = "Vin", LastName = "Diesel", Age = 42, Gender = 'M', Rating ="8.9/10"}
 
@@ -34,8 +34,6 @@ namespace CinemaAPI.Tests
 
         }
 
-
-
         [Fact]
         public void ADD_ShouldReturnActorAdded()
         {
@@ -45,6 +43,7 @@ namespace CinemaAPI.Tests
             var actor = new Actor() { ActorId = x, FirstName = "Mark", LastName = "Walhberg", Age = 44, Gender = 'M', Rating = "8.5/10" };
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
                 .UseInMemoryDatabase(databaseName: "ADD_ShouldReturnActorAdded")
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .Options;
 
             var context = new CinemaDbContext(options);
@@ -71,6 +70,7 @@ namespace CinemaAPI.Tests
             int x = 2;
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
                 .UseInMemoryDatabase(databaseName: "GET_ShouldReturnActorById2")
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .Options;
 
             var context = new CinemaDbContext(options);
@@ -104,11 +104,11 @@ namespace CinemaAPI.Tests
             var service = new ActorService(context);
 
             //Act
-            var result = service.SelectAll();
+            var result = service.SelectAll().ToList();
 
 
             //Assert
-            Assert.Equal(4, result.ToList().Count);
+            Assert.Equal(4, result.Count);
 
 
 
@@ -121,7 +121,7 @@ namespace CinemaAPI.Tests
 
 
             //Arrange
-            int x = 3;
+            var x = 2;
             var actor = new Actor { ActorId = x, FirstName = "Sarah Jessica", LastName = "Parker", Age = 54, Gender = 'F', Rating = "6.5/10" };
 
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
@@ -141,7 +141,7 @@ namespace CinemaAPI.Tests
             //Assert
             Assert.Equal(result.FirstName, actor.FirstName);
 
-        }
+        } 
 
         [Fact]
         public void DELETE_ShouldReturnOneActorLess()
@@ -151,16 +151,14 @@ namespace CinemaAPI.Tests
             int x = 4;
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
                 .UseInMemoryDatabase(databaseName: "DELETE_ShouldReturnOneActorLess")
-                .EnableSensitiveDataLogging(true)
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .Options;
 
 
-            var contextRem = new CinemaDbContext(options);
+            var context = new CinemaDbContext(options);
 
-            SeedActors(contextRem);
+            SeedActors(context);
 
-            var service = new ActorService(contextRem);
+            var service = new ActorService(context);
 
 
             //Act
