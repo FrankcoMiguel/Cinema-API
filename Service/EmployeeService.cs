@@ -17,9 +17,9 @@ namespace Service
         //GET
         IEnumerable<Employee> SelectAll();
         //PUT
-        bool Update(int id, Employee employee);
+        Employee Update(int id, Employee employee);
         // DELETE
-        bool Delete(int id);
+        IEnumerable<Employee> Delete(int id);
 
     }
     public class EmployeeService : IEmployeeService
@@ -99,7 +99,7 @@ namespace Service
 
         }
 
-        public bool Update(int id, Employee newEmployee)
+        public Employee Update(int id, Employee newEmployee)
         {
 
             try
@@ -112,43 +112,44 @@ namespace Service
                 actualEmployee.Age = newEmployee.Age;
 
 
-
-
                 _cinemaDbContext.Update(actualEmployee);
                 _cinemaDbContext.SaveChanges();
 
+
+                return actualEmployee;
+
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
 
             }
-
-            return true;
 
 
         }
 
-        public bool Delete(int id)
+        public IEnumerable<Employee> Delete(int id)
         {
 
             try
             {
-
-                _cinemaDbContext.Remove(new Employee { EmployeeId = id }).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                Employee employee = _cinemaDbContext.Employee.Single(x => x.EmployeeId == id);
+                _cinemaDbContext.Remove(employee).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 _cinemaDbContext.SaveChanges();
 
+                return _cinemaDbContext.Employee.ToList();
+
 
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
 
             }
 
-            return true;
+            
 
         }
 

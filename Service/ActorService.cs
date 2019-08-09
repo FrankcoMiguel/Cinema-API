@@ -134,15 +134,16 @@ namespace Service
         public bool Delete(int id)
         {
 
-            Actor actorRemove = new Actor { ActorId = id };
+
 
             try
             {
-                _cinemaDbContext.Actor.Remove(actorRemove);
+                Actor actor = _cinemaDbContext.Actor.Single(x => x.ActorId == id);
+                _cinemaDbContext.Actor.Remove(actor).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 _cinemaDbContext.SaveChanges();
-
-
                 return true;
+
+
 
             }
             catch (System.Exception e)
@@ -153,6 +154,7 @@ namespace Service
 
 
             }
+
 
 
         }

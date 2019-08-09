@@ -17,7 +17,7 @@ namespace Service
         //GET
         IEnumerable<Director> SelectAll();
         //PUT
-        bool Update(int id, Director Director);
+        Director Update(int id, Director Director);
         // DELETE
         bool Delete(int id);
 
@@ -99,7 +99,7 @@ namespace Service
 
         }
 
-        public bool Update(int id, Director newDirector)
+        public Director Update(int id, Director newDirector)
         {
 
             try
@@ -115,15 +115,17 @@ namespace Service
                 _cinemaDbContext.Update(actualDirector);
                 _cinemaDbContext.SaveChanges();
 
+                return actualDirector;
+
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
 
             }
 
-            return true;
+
 
 
         }
@@ -133,9 +135,10 @@ namespace Service
 
             try
             {
-
-                _cinemaDbContext.Remove(new Director { DirectorId = id }).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                Director director = _cinemaDbContext.Director.Single(x => x.DirectorId == id);
+                _cinemaDbContext.Remove(director).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
                 _cinemaDbContext.SaveChanges();
+                return true;
 
 
             }
@@ -146,7 +149,7 @@ namespace Service
 
             }
 
-            return true;
+
 
         }
 
