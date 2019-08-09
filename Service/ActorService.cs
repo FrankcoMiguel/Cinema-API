@@ -10,13 +10,13 @@ namespace Service
     public interface IActorService
     {
         //POST
-        bool Add(Actor actor);
+        Actor Add(Actor actor);
         //GET
         Actor Select(int id);
         //GET
         IEnumerable<Actor> SelectAll();
         //PUT
-        bool Update(int id, Actor actor);
+        Actor Update(int id, Actor actor);
         // DELETE
         bool Delete(int id);
 
@@ -33,7 +33,7 @@ namespace Service
 
         }
 
-        public bool Add(Actor actor)
+        public Actor Add(Actor actor)
         {
 
             try
@@ -43,14 +43,14 @@ namespace Service
                 _cinemaDbContext.SaveChanges();
 
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
 
             }
 
-            return true;
+            return actor;
 
         }
 
@@ -98,7 +98,7 @@ namespace Service
 
         }
 
-        public bool Update(int id, Actor newActor)
+        public Actor Update(int id, Actor newActor)
         {
 
             try
@@ -109,21 +109,24 @@ namespace Service
                 actualActor.FirstName = newActor.FirstName;
                 actualActor.LastName = newActor.LastName;
                 actualActor.Age = newActor.Age;
+                actualActor.Gender = newActor.Gender;
                 actualActor.Rating = newActor.Rating;
 
 
                 _cinemaDbContext.Update(actualActor);
                 _cinemaDbContext.SaveChanges();
 
+                return actualActor;
+
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
 
             }
 
-            return true;
+     
 
 
         }
@@ -131,22 +134,26 @@ namespace Service
         public bool Delete(int id)
         {
 
+            Actor actorRemove = new Actor { ActorId = id };
+
             try
             {
-
-                _cinemaDbContext.Remove(new Actor { ActorId = id }).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                _cinemaDbContext.Actor.Remove(actorRemove);
                 _cinemaDbContext.SaveChanges();
 
 
+                return true;
+
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
 
-                return false;
+                throw e;
+
+
 
             }
 
-            return true;
 
         }
 
