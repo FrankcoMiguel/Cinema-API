@@ -10,105 +10,103 @@ using Xunit;
 
 namespace CinemaAPI.Tests
 {
-    public class ActorServiceTests
+    public class DirectorServiceTests
     {
 
 
 
 
-        private void SeedActors(CinemaDbContext context)
+        private void SeedDirectors(CinemaDbContext context)
         {
 
-            var actors = new[]
+            var Directors = new[]
             {
 
-                new Actor {ActorId = 1, FirstName = "Robert", LastName = "Redfort", Age = 64, Gender = 'M', Rating ="7.2/10"},
-                new Actor {ActorId = 2, FirstName = "Tom", LastName = "Holland", Age = 23, Gender = 'M', Rating ="7.5/10"},
-                new Actor {ActorId = 3, FirstName = "Zoe", LastName = "Saldaña", Age = 37, Gender = 'F', Rating ="8.1/10"},
-                new Actor {ActorId = 4, FirstName = "Vin", LastName = "Diesel", Age = 42, Gender = 'M', Rating ="8.9/10"}
+                new Director {DirectorId = 1, FirstName = "Chirstopher", LastName = "Nolan", Age = 48, Rating ="9.4/10"},
+                new Director {DirectorId = 2, FirstName = "Clint", LastName = "Eastwood", Age = 67, Rating ="7.3/10"},
+                new Director {DirectorId = 3, FirstName = "Quentin", LastName = "Tarantino", Age = 51, Rating ="9.3/10"}
 
             };
 
-            context.Actor.AddRange(actors);
+            context.Director.AddRange(Directors);
             context.SaveChanges();
 
         }
 
         [Fact]
-        public void ADD_ShouldReturnActorAdded()
+        public void ADD_ShouldReturnDirectorAdded()
         {
 
             //Arrange
-            int x = 5;
-            var actor = new Actor() { ActorId = x, FirstName = "Mark", LastName = "Walhberg", Age = 44, Gender = 'M', Rating = "8.5/10" };
+            int x = 4;
+            var director = new Director() { DirectorId = x, FirstName = "James", LastName = "Cameron", Age = 58, Rating = "9.6/10" };
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
-                .UseInMemoryDatabase(databaseName: "ADD_ShouldReturnActorAdded")
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                .UseInMemoryDatabase(databaseName: "ADD_ShouldReturnDirectorAdded")
                 .Options;
 
             var context = new CinemaDbContext(options);
 
-            SeedActors(context);
+            SeedDirectors(context);
 
-            var service = new ActorService(context);
+            var service = new DirectorService(context);
 
             //Act
-            var result = service.Add(actor);
+            var result = service.Add(director);
 
 
             //Assert
-            Assert.Equal(result.ActorId, actor.ActorId);
+            Assert.True(result);
 
         }
 
 
         [Fact]
-        public void GET_ShouldReturnActorById2()
+        public void GET_ShouldReturnDirectorById2()
         {
 
             //Arrange
             int x = 2;
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
-                .UseInMemoryDatabase(databaseName: "GET_ShouldReturnActorById2")
+                .UseInMemoryDatabase(databaseName: "GET_ShouldReturnDirectorById2")
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .Options;
 
             var context = new CinemaDbContext(options);
 
-            SeedActors(context);
+            SeedDirectors(context);
 
-            var service = new ActorService(context);
+            var service = new DirectorService(context);
 
             //Act
             var result = service.Select(x);
 
 
             //Assert
-            Assert.Equal(result.ActorId, x);
+            Assert.Equal(result.DirectorId, x);
 
         }
 
         [Fact]
-        public void GETALL_ShouldReturnAllActors()
+        public void GETALL_ShouldReturnAllDirectors()
         {
             //Arrange
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
-                .UseInMemoryDatabase(databaseName: "GETALL_ShouldReturnAllActors")
+                .UseInMemoryDatabase(databaseName: "GETALL_ShouldReturnAllDirectors")
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .Options;
 
             var context = new CinemaDbContext(options);
 
-            SeedActors(context);
+            SeedDirectors(context);
 
-            var service = new ActorService(context);
+            var service = new DirectorService(context);
 
             //Act
             var result = service.SelectAll().ToList();
 
 
             //Assert
-            Assert.Equal(4, result.Count);
+            Assert.Equal(3, result.Count);
 
 
 
@@ -122,7 +120,7 @@ namespace CinemaAPI.Tests
 
             //Arrange
             var x = 2;
-            var actor = new Actor { ActorId = x, FirstName = "Sarah Jessica", LastName = "Parker", Age = 54, Gender = 'F', Rating = "6.5/10" };
+            var Director = new Director { DirectorId = x, FirstName = "David", LastName = "Fincher", Age = 54, Rating = "7.9/10" };
 
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
                 .UseInMemoryDatabase(databaseName: "UPDATE_ShouldReturnNewName")
@@ -130,35 +128,35 @@ namespace CinemaAPI.Tests
 
             var context = new CinemaDbContext(options);
 
-            SeedActors(context);
+            SeedDirectors(context);
 
-            var service = new ActorService(context);
+            var service = new DirectorService(context);
 
             //Act
-            var result = service.Update(x, actor);
+            var result = service.Update(x, Director);
 
 
             //Assert
-            Assert.Equal(result.FirstName, actor.FirstName);
+            Assert.Equal(result.FirstName, Director.FirstName);
 
         } 
 
         [Fact]
-        public void DELETE_ShouldReturnOneActorLess()
+        public void DELETE_ShouldReturnOneDirectorLess()
         {
 
             //Arrange
-            int x = 4;
+            int x = 2;
             var options = new DbContextOptionsBuilder<CinemaDbContext>()
-                .UseInMemoryDatabase(databaseName: "DELETE_ShouldReturnOneActorLess")
+                .UseInMemoryDatabase(databaseName: "DELETE_ShouldReturnOneDirectorLess")
                 .Options;
 
 
             var context = new CinemaDbContext(options);
 
-            SeedActors(context);
+            SeedDirectors(context);
 
-            var service = new ActorService(context);
+            var service = new DirectorService(context);
 
 
             //Act
