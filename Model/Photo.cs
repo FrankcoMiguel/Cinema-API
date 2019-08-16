@@ -11,11 +11,11 @@ namespace Model
         public string Caption { get; set; }
         public string Url { get; set; }
 
-        public ICollection<Actor> ActorGallery { get; }
-        public ICollection<Director> DirectorGallery { get; }
-        public ICollection<Employee> EmployeeGallery { get; }
-        public ICollection<Film> Billboard { get; }
-        public ICollection<Snack> Menu { get; }
+        public ICollection<Actor> ActorGallery { get; set; }
+        public ICollection<Director> DirectorGallery { get; set; }
+        public ICollection<Employee> EmployeeGallery { get; set; }
+        public ICollection<Film> Billboard { get; set; }
+        public ICollection<Snack> Menu { get; set; }
 
 
     }

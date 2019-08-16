@@ -17,6 +17,8 @@ namespace Model
         public int DirectorId { get; set; }
         public Director Director { get; set; }
         public ICollection<ActorFilm> Actores { get; set; }
+        public int PhotoId { get; set; }
+        public Photo Photo { get; set; }
         
     }
 }

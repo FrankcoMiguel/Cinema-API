@@ -14,6 +14,8 @@ namespace Model
         public char Gender { get; set; }
         public string Rating { get; set; }
         public ICollection<ActorFilm> Films { get; set; }
+        public int PhotoId { get; set; }
+        public Photo Photo { get; set; }
 
     }
 }

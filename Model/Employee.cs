@@ -13,6 +13,8 @@ namespace Model
         public int Age { get; set; }
         public int StaffId { get; set; }
         public Staff Title { get; set; }
+        public int PhotoId { get; set; }
+        public Photo Photo { get; set; }
 
     }
 }

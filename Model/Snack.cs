@@ -11,6 +11,8 @@ namespace Model
         public string Name { get; set; }
         public string Size { get; set; }
         public double Cost { get; set; }
+        public int PhotoId { get; set; }
+        public Photo Photo { get; set; }
 
     }
 }
