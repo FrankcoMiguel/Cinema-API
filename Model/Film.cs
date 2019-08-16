@@ -7,13 +7,6 @@ namespace Model
     public class Film
     {
 
-        public Film()
-        {
-
-           //Actores = new HashSet<Actor>
-
-        }
-
         public int FilmId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -23,7 +16,7 @@ namespace Model
         public string Rating { get; set; }
         public int DirectorId { get; set; }
         public Director Director { get; set; }
-        //public ICollection<Actor> Actores { get; set; }
-
+        public ICollection<ActorFilm> Actores { get; set; }
+        
     }
 }
