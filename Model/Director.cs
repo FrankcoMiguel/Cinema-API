@@ -7,20 +7,13 @@ namespace Model
     public class Director
     {
 
-        public Director()
-        {
-
-           //Film = new HashSet<Film>();
-
-        }
-
         public int DirectorId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
+        public char Gender { get; set; }
         public string Rating { get; set; }
-
-        //public ICollection<Film> Films { get; set; }
+        public ICollection<Film> Films { get; set; }
 
     }
 }
