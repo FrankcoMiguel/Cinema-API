@@ -4,7 +4,12 @@ using System.Text;
 
 namespace Model
 {
-    class Staff
+    public class Staff
     {
+
+        public int StaffId { get; set; }
+        public string Role { get; set; }
+        public double Salary { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }
