@@ -8,8 +8,9 @@ namespace Model
     {
 
         public int StaffId { get; set; }
-        public string Role { get; set; }
+        public string Title { get; set; }
         public double Salary { get; set; }
         public ICollection<Employee> Employees { get; set; }
+
     }
 }
