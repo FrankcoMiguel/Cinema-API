@@ -21,7 +21,8 @@ namespace Model
         public string Duration { get; set; }
         public string Genre { get; set; }
         public string Rating { get; set; }
-
+        public int DirectorId { get; set; }
+        public Director Director { get; set; }
         //public ICollection<Actor> Actores { get; set; }
 
     }
